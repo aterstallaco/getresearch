@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Research of Dr. Michael A. Hoyt | An Interactive Exploration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Teal Accents -->
+    <!-- Application Structure Plan: A thematic, single-page narrative structure is used to guide users through Dr. Hoyt's work logically. It starts with a high-level overview, moves to foundational theories (EAC), details the core GET intervention with interactive charts, explores his focus on specific populations via clickable cards, and concludes with his collaborative network. This structure prioritizes user understanding and exploration over a rigid, report-based layout. A sticky navigation bar facilitates easy movement between these thematic sections, enhancing usability. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Key achievements -> Goal: Inform/Engage -> Viz: Dynamic stat cards -> Interaction: Subtle animations on load -> Justification: Provides a quick, impactful summary.
+        - Report Info: GET efficacy data (depression/anxiety reduction) -> Goal: Compare/Inform -> Viz: Bar Chart (Chart.js) -> Interaction: Hover for tooltips with specific data -> Justification: Clearly visualizes the intervention's success.
+        - Report Info: GET components -> Goal: Inform/Organize -> Viz: Doughnut Chart (Chart.js) -> Interaction: Hover to see component details -> Justification: Shows the proportional structure of the therapy.
+        - Report Info: Focus on diverse populations -> Goal: Organize/Inform -> Viz: Interactive HTML/CSS cards -> Interaction: Click to expand/reveal detailed text -> Justification: Manages information density and allows user-driven exploration.
+        - Report Info: Collaborative network -> Goal: Relationships -> Viz: Interactive HTML/CSS diagram -> Interaction: Hover over nodes to see details -> Justification: A clean, performant, and accessible way to show key relationships without the overhead of a complex graph library.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #F8F7F4;
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #2C7A7B;
+            border-bottom-color: #2C7A7B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">Dr. Michael A. Hoyt</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="nav-link font-semibold pb-1">Overview</a>
+                <a href="#concepts" class="nav-link font-semibold pb-1">Core Concepts</a>
+                <a href="#intervention" class="nav-link font-semibold pb-1">GET Intervention</a>
+                <a href="#populations" class="nav-link font-semibold pb-1">Populations</a>
+                <a href="#network" class="nav-link font-semibold pb-1">Network</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="overview" class="text-center min-h-[60vh] flex flex-col justify-center items-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Pioneering Biobehavioral Science in Cancer Survivorship</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12">
+                An interactive exploration of the research of Dr. Michael A. Hoyt, a leader in understanding the complex interplay between psychology, biology, and health in individuals facing chronic illness.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+                <div class="bg-white p-6 rounded-lg shadow-md card">
+                    <h3 class="text-2xl font-bold text-teal-600 mb-2">Core Focus</h3>
+                    <p class="text-gray-700">Biobehavioral processes of coping with chronic illness and cancer survivorship.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md card">
+                    <h3 class="text-2xl font-bold text-teal-600 mb-2">Key Innovation</h3>
+                    <p class="text-gray-700">Goal-focused Emotion-Regulation Therapy (GET) for young adult cancer survivors.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md card">
+                    <h3 class="text-2xl font-bold text-teal-600 mb-2">Primary Institution</h3>
+                    <p class="text-gray-700">Professor at University of California, Irvine (UCI).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="concepts" class="py-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">From Theory to Application</h2>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600 mt-4">Dr. Hoyt's research demonstrates a clear, programmatic progression from foundational coping theories to the development of evidence-based clinical interventions.</p>
+            </div>
+            <div class="relative w-full max-w-4xl mx-auto">
+                <div class="border-l-4 border-teal-500 absolute h-full top-0 left-4"></div>
+                <div class="space-y-12">
+                    <div class="pl-12 relative">
+                        <div class="absolute w-8 h-8 bg-teal-500 rounded-full -left-4 border-4 border-white"></div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Emotional Approach Coping (EAC)</h3>
+                        <p class="mt-2 text-gray-700">A foundational concept developed with Annette L. Stanton, EAC posits that the intentional use of emotional processing and expression is an adaptive strategy for managing adversity. This reframed emotion-focused coping, linking it to positive health behaviors and outcomes.</p>
+                    </div>
+                    <div class="pl-12 relative">
+                        <div class="absolute w-8 h-8 bg-teal-500 rounded-full -left-4 border-4 border-white"></div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Biobehavioral Measurement</h3>
+                        <p class="mt-2 text-gray-700">A hallmark of his work is the integration of psychological data with objective biological markers. By measuring salivary hormones (like cortisol) and inflammatory markers, his research provides physiological evidence for the impact of psychological states and interventions.</p>
+                    </div>
+                    <div class="pl-12 relative">
+                        <div class="absolute w-8 h-8 bg-teal-500 rounded-full -left-4 border-4 border-white"></div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Translational Intervention</h3>
+                        <p class="mt-2 text-gray-700">The culmination of his foundational work is the creation of clinical therapies like GET. This represents a translational leap, applying theoretical insights to solve real-world problems for cancer survivors and improve their quality of life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="intervention" class="py-20 bg-white rounded-lg shadow-xl">
+            <div class="text-center mb-12 px-4">
+                <h2 class="text-3xl font-bold text-gray-900">Innovation in Action: Goal-focused Emotion-Regulation Therapy (GET)</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600 mt-4">GET is a novel, 6-session behavioral therapy designed to enhance self-regulation for young adult cancer survivors by targeting three key areas. It has demonstrated significant efficacy in improving mental health.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="px-4">
+                    <h3 class="text-2xl font-semibold text-center mb-4 text-gray-800">The Three Pillars of GET</h3>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="getComponentsChart"></canvas>
+                    </div>
+                </div>
+                <div class="px-4">
+                    <h3 class="text-2xl font-semibold text-center mb-4 text-gray-800">Proven Efficacy: Symptom Reduction</h3>
+                     <div class="chart-container h-64 md:h-80">
+                        <canvas id="getEfficacyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+             <div class="text-center mt-16 px-4">
+                <h3 class="text-2xl font-semibold text-gray-800">Beyond Symptoms: The Biobehavioral Impact</h3>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600 mt-4 mb-8">A pioneering aspect of GET trials is the investigation into its ability to regulate the body's stress response systems, potentially altering biological processes and preventing future health problems.</p>
+                <div class="flex justify-center items-center space-x-8">
+                    <div class="text-center">
+                        <span class="text-5xl">🧬</span>
+                        <p class="mt-2 font-semibold">Stress Hormone Regulation</p>
+                        <p class="text-sm text-gray-600">Aims to correct dysregulated diurnal cortisol patterns.</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="text-5xl">🔬</span>
+                        <p class="mt-2 font-semibold">Reduced Inflammation</p>
+                        <p class="text-sm text-gray-600">Investigates decreases in systemic inflammatory markers.</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="text-5xl"> epigenetics</span>
+                        <p class="mt-2 font-semibold">Epigenetic Changes</p>
+                        <p class="text-sm text-gray-600">Explores potential alterations in stress-related gene expression.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="populations" class="py-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">A Commitment to Health Equity</h2>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600 mt-4">Dr. Hoyt's research is driven by a commitment to addressing health disparities, tailoring interventions for diverse and often underserved patient populations.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md card cursor-pointer population-card" data-content="Dr. Hoyt's signature focus is on young adults with testicular cancer, a group facing unique developmental disruptions. His work examines specific issues like 'cancer-related masculine threat' and led to the creation of the CAYA Goal Navigation Scale, a tool tailored for this population.">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Young Adult Testicular Cancer Survivors</h3>
+                    <p class="text-gray-600">Addressing the unique psychosocial and developmental challenges of cancer diagnosis during a critical life stage. Click to learn more.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md card cursor-pointer population-card" data-content="Recognizing community needs, Dr. Hoyt has conducted pilot trials of GET specifically for young adult Latino survivors. This research assesses cultural congruence and factors like 'simpatía' to ensure the intervention is effective and relevant for this community.">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Latino Cancer Survivors</h3>
+                    <p class="text-gray-600">Adapting and testing interventions to be culturally congruent and effective for the Latino community. Click to learn more.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md card cursor-pointer population-card" data-content="A key part of his health disparities research includes studies on the quality of life among LGBTQ+ cancer survivors. This work aims to understand and mitigate the unique stressors and health challenges faced by this population during and after cancer treatment.">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">LGBTQ+ Cancer Survivors</h3>
+                    <p class="text-gray-600">Investigating disparities in health-related quality of life to better serve sexual and gender minority survivors. Click to learn more.</p>
+                </div>
+            </div>
+            <div id="population-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl p-8 max-w-2xl w-full relative">
+                    <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900 mb-4"></h3>
+                    <p id="modal-content" class="text-gray-700"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="network" class="py-20">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">The Collaborative Scientific Engine</h2>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600 mt-4">Dr. Hoyt's research is amplified by a dynamic network of collaborators, connecting foundational theory, clinical expertise, and mentorship to drive scientific progress.</p>
+            </div>
+            <div class="flex flex-col items-center justify-center space-y-12">
+                <div class="relative">
+                    <div class="w-40 h-40 bg-teal-600 text-white rounded-full flex items-center justify-center text-center p-4 shadow-lg">
+                        <span class="font-bold text-lg">Dr. Michael A. Hoyt</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 w-full max-w-5xl">
+                    <div class="text-center group relative">
+                        <div class="w-24 h-24 bg-white border-2 border-purple-400 rounded-full mx-auto flex items-center justify-center p-2 shadow-md">
+                            <span class="font-semibold text-sm">Annette L. Stanton</span>
+                        </div>
+                        <div class="absolute bottom-full mb-2 w-48 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <strong>UCLA:</strong> Foundational work on Emotional Approach Coping.
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-800"></div>
+                        </div>
+                    </div>
+                    <div class="text-center group relative">
+                        <div class="w-24 h-24 bg-white border-2 border-blue-400 rounded-full mx-auto flex items-center justify-center p-2 shadow-md">
+                            <span class="font-semibold text-sm">Christian J. Nelson</span>
+                        </div>
+                         <div class="absolute bottom-full mb-2 w-48 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <strong>MSKCC:</strong> Clinical expertise in psycho-oncology and GET trials.
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-800"></div>
+                        </div>
+                    </div>
+                    <div class="text-center group relative">
+                        <div class="w-24 h-24 bg-white border-2 border-green-400 rounded-full mx-auto flex items-center justify-center p-2 shadow-md">
+                            <span class="font-semibold text-sm">Ashley W. Wang</span>
+                        </div>
+                         <div class="absolute bottom-full mb-2 w-48 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <strong>Soochow U:</strong> Statistical and methodological expertise on GET trials.
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-800"></div>
+                        </div>
+                    </div>
+                    <div class="text-center group relative">
+                        <div class="w-24 h-24 bg-white border-2 border-orange-400 rounded-full mx-auto flex items-center justify-center p-2 shadow-md">
+                            <span class="font-semibold text-sm">Katie Darabos</span>
+                        </div>
+                         <div class="absolute bottom-full mb-2 w-48 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <strong>Rutgers:</strong> Biobehavioral factors in young adult survivorship.
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-gray-800"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 | An Interactive Summary of Research by Dr. Michael A. Hoyt.</p>
+            <p class="text-sm text-gray-400 mt-2">This page is a synthesis created for illustrative purposes based on publicly available research information.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4,
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const getComponentsCtx = document.getElementById('getComponentsChart').getContext('2d');
+            const getComponentsChart = new Chart(getComponentsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Improved Goal Navigation', 'Reinforced Sense of Purpose', 'Emotion Regulation Skills'],
+                    datasets: [{
+                        data: [33.3, 33.3, 33.3],
+                        backgroundColor: ['#4FD1C5', '#38B2AC', '#2C7A7B'],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '50%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const getEfficacyCtx = document.getElementById('getEfficacyChart').getContext('2d');
+            const getEfficacyChart = new Chart(getEfficacyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Depressive Symptoms', 'Anxiety Symptoms'],
+                    datasets: [{
+                        label: 'Symptom Reduction',
+                        data: [35, 28],
+                        backgroundColor: ['#4FD1C5', '#38B2AC'],
+                        borderColor: ['#2C7A7B', '#2C7A7B'],
+                        borderWidth: 2,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Percentage Reduction (%)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.raw}% reduction`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const populationCards = document.querySelectorAll('.population-card');
+            const modal = document.getElementById('population-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+
+            populationCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    modalTitle.textContent = card.querySelector('h3').textContent;
+                    modalContent.textContent = card.dataset.content;
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                });
+            });
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            };
+            
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
